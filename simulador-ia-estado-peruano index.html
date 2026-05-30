@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Madurez IA — Estado Peruano 2026-2030 | Legado Bolognesi LAB</title>
+<meta name="description" content="Evalúa tu nivel de madurez en implementación de Inteligencia Artificial en el Estado peruano. 30 preguntas alineadas con la PGMGP 2030 y el Plan Perú 2050.">
+<meta property="og:title" content="Simulador de Madurez IA — Estado Peruano 2026-2030">
+<meta property="og:description" content="¿Está el Perú listo para la IA en el Estado? Descubre tu nivel de madurez en 30 preguntas.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;--surface:#161b22;--card:#1c2128;--border:#30363d;
+  --gold:#c9a03a;--goldlt:#e8bf50;
+  --txt:#e6edf3;--muted:#8b949e;--dim:#484f58;
+  --blue:#3b82f6;--green:#22c55e;--amber:#f59e0b;--red:#ef4444;
+  --lv1:#3b82f6;--lv2:#f59e0b;--lv3:#22c55e;--lv4:#8b5cf6;
+}
+body{font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;line-height:1.6;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+/* HEADER */
+.site-header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{font-size:22px;}
+.logo-text{color:var(--gold);font-size:14px;font-weight:700;letter-spacing:2px;}
+.logo-sub{color:var(--muted);font-size:9px;letter-spacing:1px;display:block;}
+.header-badges{display:flex;gap:6px;flex-wrap:wrap;}
+.hbadge{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:99px;padding:3px 10px;font-size:10px;color:var(--muted);}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#0d1117 0%,#1a2744 50%,#0d1117 100%);padding:48px 24px;text-align:center;border-bottom:1px solid var(--border);}
+.hero-eyebrow{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;}
+.hero h1{font-size:clamp(22px,4vw,38px);font-weight:700;line-height:1.2;margin-bottom:16px;color:var(--txt);}
+.hero h1 span{color:var(--gold);}
+.hero-sub{color:var(--muted);font-size:15px;max-width:600px;margin:0 auto 28px;line-height:1.7;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:32px;}
+.pill{display:inline-block;padding:4px 14px;border-radius:99px;font-size:11px;font-weight:600;letter-spacing:.5px;}
+.pill-blue{background:rgba(59,130,246,.15);color:#93c5fd;border:1px solid rgba(59,130,246,.3);}
+.pill-green{background:rgba(34,197,94,.15);color:#86efac;border:1px solid rgba(34,197,94,.3);}
+.pill-amber{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.3);}
+.pill-purple{background:rgba(139,92,246,.15);color:#c4b5fd;border:1px solid rgba(139,92,246,.3);}
+.info-strip{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:8px;}
+.info-box{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:12px 20px;text-align:center;}
+.info-box .ib-val{font-size:22px;font-weight:700;color:var(--gold);}
+.info-box .ib-lbl{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* SCALE TABLE */
+.scale-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;max-width:640px;margin:24px auto 0;}
+.scale-box{border-radius:10px;padding:14px;text-align:center;border:1px solid;}
+.scale-box .sb-pts{font-size:20px;font-weight:700;}
+.scale-box .sb-lbl{font-size:12px;font-weight:600;margin-top:2px;}
+.scale-box .sb-icon{font-size:24px;margin-bottom:6px;}
+
+/* MAIN */
+.main{max-width:760px;margin:0 auto;padding:32px 16px 64px;}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;}
+.card-accent{border-top:3px solid var(--gold);}
+
+/* PROGRESS */
+.prog-wrap{background:var(--border);border-radius:99px;height:6px;margin:8px 0 4px;overflow:hidden;}
+.prog-bar{height:100%;background:var(--blue);border-radius:99px;transition:width .4s ease;}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
+.q-num{font-size:13px;color:var(--muted);}
+.q-pts{font-size:13px;color:var(--gold);font-weight:700;}
+.q-cat{display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,.15);color:#93c5fd;border:1px solid rgba(59,130,246,.25);border-radius:99px;padding:4px 12px;font-size:11px;font-weight:600;}
+.q-text{font-size:16px;font-weight:500;line-height:1.7;color:var(--txt);margin-bottom:20px;}
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border:1px solid var(--border);border-radius:10px;cursor:pointer;font-size:14px;color:var(--txt);line-height:1.6;background:var(--surface);transition:border-color .15s,background .15s;text-align:left;width:100%;}
+.opt:hover:not(:disabled){border-color:#4b6fa5;background:rgba(59,130,246,.08);}
+.opt:disabled{cursor:default;}
+.opt.selected{border-color:var(--blue);background:rgba(59,130,246,.12);color:#93c5fd;}
+.opt.correct{border-color:var(--green);background:rgba(34,197,94,.1);color:#86efac;}
+.opt.wrong{border-color:var(--red);background:rgba(239,68,68,.1);color:#fca5a5;}
+.opt-lbl{font-size:11px;font-weight:700;min-width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.07);border:1px solid var(--border);flex-shrink:0;margin-top:1px;}
+.attempt-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2);border-radius:99px;padding:3px 10px;font-size:11px;font-weight:600;}
+
+/* FEEDBACK */
+.feedback{margin-top:16px;padding:14px 16px;border-radius:10px;font-size:13px;line-height:1.7;}
+.fb-ok{background:rgba(34,197,94,.08);color:#86efac;border:1px solid rgba(34,197,94,.2);}
+.fb-warn{background:rgba(245,158,11,.08);color:#fcd34d;border:1px solid rgba(245,158,11,.2);}
+.fb-err{background:rgba(239,68,68,.08);color:#fca5a5;border:1px solid rgba(239,68,68,.2);}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--txt);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;font-family:inherit;}
+.btn:hover{background:var(--card);border-color:#4b6fa5;}
+.btn-primary{background:var(--blue);color:#fff;border-color:#1d4ed8;}
+.btn-primary:hover{background:#1d4ed8;}
+.btn-gold{background:rgba(201,160,58,.15);color:var(--gold);border-color:rgba(201,160,58,.3);}
+.btn-gold:hover{background:rgba(201,160,58,.25);}
+.btn-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.btn-lg{padding:14px 32px;font-size:15px;border-radius:12px;}
+
+/* START SCREEN */
+.start-screen{text-align:center;padding:40px 16px;}
+.start-screen h2{font-size:28px;font-weight:700;margin-bottom:12px;}
+.start-screen p{font-size:15px;color:var(--muted);margin-bottom:28px;line-height:1.8;max-width:560px;margin-left:auto;margin-right:auto;}
+
+/* RESULT */
+.score-hero{text-align:center;padding:40px 20px;}
+.score-number{font-size:80px;font-weight:700;line-height:1;}
+.score-label{font-size:20px;font-weight:600;margin:8px 0 4px;}
+.score-msg{font-size:14px;color:var(--muted);max-width:480px;margin:0 auto;}
+.stats-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
+.stat-box{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:14px 20px;text-align:center;}
+.stat-box .sv{font-size:26px;font-weight:700;}
+.stat-box .sl{font-size:11px;color:var(--muted);margin-top:2px;}
+
+/* DIMENSIONS */
+.dim-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px;}
+.dim-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
+.dim-title{font-size:11px;color:var(--muted);margin-bottom:4px;}
+.dim-score{font-size:18px;font-weight:700;}
+.dim-bar{height:4px;border-radius:99px;background:var(--border);margin-top:6px;overflow:hidden;}
+.dim-fill{height:100%;border-radius:99px;}
+
+/* REVIEW */
+.res-section{margin-top:28px;}
+.res-title{font-size:14px;font-weight:600;color:var(--txt);border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.res-item{padding:12px 0;border-bottom:1px solid rgba(48,54,61,.6);font-size:13px;line-height:1.7;}
+.res-q{color:var(--muted);font-size:12px;margin-bottom:4px;}
+.tag-ok{color:var(--green);font-weight:600;}
+.tag-err{color:var(--red);font-weight:600;}
+
+/* RESOURCES */
+.resource-card{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border:1px solid var(--border);border-radius:10px;margin-bottom:10px;background:var(--surface);text-decoration:none;color:var(--txt);transition:border-color .15s,background .15s;}
+.resource-card:hover{background:var(--card);border-color:#4b6fa5;text-decoration:none;}
+.rc-icon{font-size:26px;flex-shrink:0;margin-top:2px;}
+.rc-title{font-size:14px;font-weight:600;margin-bottom:3px;}
+.rc-desc{font-size:12px;color:var(--muted);}
+
+/* ARTICLE SECTION */
+.article-section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:28px;}
+.article-section h2{color:var(--gold);font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:16px;text-transform:uppercase;}
+.article-text p{color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:12px;}
+.article-text p strong{color:var(--txt);}
+.hashtags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;}
+.htag{background:rgba(59,130,246,.1);color:#93c5fd;border:1px solid rgba(59,130,246,.2);border-radius:99px;padding:3px 12px;font-size:11px;}
+
+/* FOOTER */
+.footer{background:var(--surface);border-top:1px solid var(--border);padding:24px;text-align:center;font-size:12px;color:var(--muted);}
+.footer a{color:var(--gold);}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .hero{padding:32px 16px;}
+  .hero h1{font-size:22px;}
+  .info-strip{gap:8px;}
+  .info-box{padding:10px 14px;}
+  .info-box .ib-val{font-size:18px;}
+  .score-number{font-size:60px;}
+  .site-header{padding:0 14px;}
+  .header-badges{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a class="logo" href="#">
+    <span class="logo-icon">🏛️</span>
+    <div>
+      <span class="logo-text">LEGADO BOLOGNESI LAB</span>
+      <span class="logo-sub">INTELIGENCIA ARTIFICIAL · ESTADO PERUANO</span>
+    </div>
+  </a>
+  <div class="header-badges">
+    <span class="hbadge">PGMGP 2030</span>
+    <span class="hbadge">PERÚ 2050</span>
+    <span class="hbadge">ENAI 2026–2030</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">🧠 Simulador de Evaluación Estratégica</div>
+  <h1>¿Está el Perú listo para la <span>IA en el Estado</span>?<br>Descúbrelo ahora.</h1>
+  <p class="hero-sub">30 preguntas sobre implementación estratégica de Inteligencia Artificial en el Estado peruano. Mide tu nivel de madurez y recibe recursos formativos personalizados.</p>
+  <div class="hero-pills">
+    <span class="pill pill-blue">📋 Marco Normativo</span>
+    <span class="pill pill-green">🔍 Anticorrupción IA</span>
+    <span class="pill pill-amber">⚖️ Ética Algorítmica</span>
+    <span class="pill pill-purple">🚀 Implementación</span>
+    <span class="pill pill-blue">🏛️ PGMGP 2030</span>
+    <span class="pill pill-green">🌎 Perú 2050</span>
+  </div>
+  <div class="info-strip">
+    <div class="info-box"><div class="ib-val">30</div><div class="ib-lbl">Preguntas</div></div>
+    <div class="info-box"><div class="ib-val">2</div><div class="ib-lbl">Intentos c/u</div></div>
+    <div class="info-box"><div class="ib-val">30</div><div class="ib-lbl">Puntos máx.</div></div>
+    <div class="info-box"><div class="ib-val">~15'</div><div class="ib-lbl">Duración</div></div>
+  </div>
+  <div class="scale-wrap">
+    <div class="scale-box" style="background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);">
+      <div class="sb-icon">📘</div>
+      <div class="sb-pts" style="color:#fca5a5;">0–12</div>
+      <div class="sb-lbl" style="color:#fca5a5;">Insuficiente</div>
+    </div>
+    <div class="scale-box" style="background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);">
+      <div class="sb-icon">📗</div>
+      <div class="sb-pts" style="color:#fcd34d;">13–20</div>
+      <div class="sb-lbl" style="color:#fcd34d;">Regular</div>
+    </div>
+    <div class="scale-box" style="background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.3);">
+      <div class="sb-icon">🎖️</div>
+      <div class="sb-pts" style="color:#93c5fd;">21–25</div>
+      <div class="sb-lbl" style="color:#93c5fd;">Bueno</div>
+    </div>
+    <div class="scale-box" style="background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3);">
+      <div class="sb-icon">🏆</div>
+      <div class="sb-pts" style="color:#86efac;">26–30</div>
+      <div class="sb-lbl" style="color:#86efac;">Excelente</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<div style="max-width:760px;margin:32px auto 0;padding:0 16px;">
+<div class="article-section">
+  <h2>📰 Artículo para LinkedIn</h2>
+  <div class="article-text">
+    <p>🚀 <strong>El futuro del Estado peruano no se construye con papel, se construye con datos.</strong> La Estrategia Nacional de Inteligencia Artificial 2026–2030 no es una promesa tecnológica: es el puente que conecta la modernización del Estado con el Plan Estratégico de Desarrollo Nacional Perú 2050 y la Política General de Modernización de la Gestión Pública 2030.</p>
+    <p>📊 <strong>Solo 3 de cada 10 entidades públicas peruanas han iniciado alguna iniciativa de IA.</strong> Mientras Chile, Colombia y Brasil ya despliegan sistemas predictivos en salud, educación y seguridad ciudadana, el Perú enfrenta una brecha de madurez digital que amenaza su competitividad y la calidad de sus servicios al ciudadano.</p>
+    <p>🏛️ <strong>La IA no reemplaza al funcionario: lo empodera.</strong> Desde la detección temprana de corrupción en el SEACE hasta la optimización del gasto en Invierte.pe, los 11 Sistemas Administrativos del Estado —regulados por la LOPE— tienen potencial transformador inmediato si se incorpora inteligencia artificial con gobernanza ética y marcos regulatorios claros alineados a estándares OCDE.</p>
+    <p>🎯 <strong>El momento es ahora.</strong> Este simulador mide tu nivel de conocimiento sobre la implementación estratégica de IA en el Estado peruano. Funcionarios, autoridades, académicos, empresarios y sociedad civil: tu diagnóstico personal es el primer paso para liderar la transformación.</p>
+    <p>👇 <strong>Responde 30 preguntas, descubre tu nivel de madurez y accede a recursos formativos personalizados.</strong></p>
+  </div>
+  <div class="hashtags">
+    <span class="htag">#InteligenciaArtificial</span>
+    <span class="htag">#EstadoPeruano</span>
+    <span class="htag">#PGMGP2030</span>
+    <span class="htag">#Peru2050</span>
+    <span class="htag">#TransformacionDigital</span>
+    <span class="htag">#GestionPublica</span>
+    <span class="htag">#Anticorrupcion</span>
+    <span class="htag">#OCDE</span>
+    <span class="htag">#IAGobierno</span>
+    <span class="htag">#LegadoDigital2030</span>
+    <span class="htag">#InnovacionPublica</span>
+    <span class="htag">#FuncionarioPublico</span>
+  </div>
+</div>
+</div>
+
+<!-- SIMULATOR -->
+<div class="main" id="app-root"></div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>🏛️ <strong style="color:var(--gold);">Legado Bolognesi LAB</strong> · Proyecto Legado Digital 2030</p>
+  <p style="margin-top:6px;">Coordinación General: Coronel Pablo Milton Noriega Vinces · Líder Técnico IA: VANGUARD-D</p>
+  <p style="margin-top:6px;">Alineado con la ENAI 2026–2030 · PGMGP 2030 (DS 062-2022-PCM) · Plan Perú 2050 (CEPLAN)</p>
+</footer>
+
+<script>
+const QUESTIONS=[
+{id:1,cat:"Marco Estratégico",icon:"📋",q:"¿Cuál es el objetivo central de la Estrategia Nacional de Inteligencia Artificial del Perú 2026-2030?",opts:["Reemplazar funcionarios públicos con robots y sistemas autónomos de decisión","Posicionar al Perú como hub tecnológico en exportación de software de IA a Latinoamérica","Impulsar el uso responsable y ético de la IA para modernizar el Estado, mejorar servicios públicos y lograr los objetivos del PEDN Perú 2050","Implementar vigilancia ciudadana masiva mediante cámaras con reconocimiento facial"],ok:2,exp:"La ENAI 2026-2030 se orienta al uso responsable de la IA para transformar el Estado, alineada con el Plan Estratégico de Desarrollo Nacional Perú 2050 y la PGMGP 2030, priorizando la mejora de servicios públicos y la transparencia.",area:"Estrategia"},
+{id:2,cat:"Marco Estratégico",icon:"🏛️",q:"¿Qué institución es el ente rector de la Transformación Digital del Estado peruano, incluyendo la gobernanza de IA?",opts:["OSCE — Organismo Supervisor de Contrataciones del Estado","PCM a través de la Secretaría de Gobierno Digital (SEGDI)","MEF mediante la Dirección General de Presupuesto Público","CONCYTEC — Consejo Nacional de Ciencia, Tecnología e Innovación"],ok:1,exp:"La Secretaría de Gobierno Digital (SEGDI) de la PCM es el ente rector del Sistema Nacional de Transformación Digital, responsable de la política nacional de IA en el sector público peruano.",area:"Gobernanza"},
+{id:3,cat:"PGMGP 2030",icon:"🎯",q:"¿Cómo contribuye la IA a la Política General de Modernización de la Gestión Pública 2030 (DS 062-2022-PCM)?",opts:["Creando nuevos ministerios especializados en tecnología","Automatizando procesos de simplificación administrativa, mejorando la interoperabilidad y habilitando servicios centrados en el ciudadano","Eliminando la burocracia mediante el despido masivo de servidores públicos","Solo aplica a los sistemas de Abastecimiento y Contabilidad del MEF"],ok:1,exp:"La PGMGP 2030 plantea un Estado moderno, eficiente y centrado en el ciudadano. La IA habilita simplificación, interoperabilidad entre los 11 sistemas administrativos, y toma de decisiones basada en evidencia.",area:"Modernización"},
+{id:4,cat:"Perú 2050",icon:"🌎",q:"¿En cuál de los Objetivos del Plan Estratégico de Desarrollo Nacional Perú 2050 tiene mayor impacto directo la implementación de IA en el Estado?",opts:["Objetivo 1: Desarrollo humano con bienestar y calidad de vida","Objetivo 4: Estado moderno, eficiente y con instituciones sólidas","Objetivo 3: Economía competitiva con empleo digno y sostenible","Objetivo 2: Seguridad ciudadana y convivencia pacífica"],ok:1,exp:"El Objetivo 4 del PEDN Perú 2050 —Estado moderno con instituciones sólidas— es el más directamente impactado por la IA, al fortalecer la transparencia, eficiencia y la lucha anticorrupción.",area:"Planificación"},
+{id:5,cat:"Sistemas Administrativos",icon:"⚙️",q:"¿En cuántos de los 11 Sistemas Administrativos del Estado (Art. 46° LOPE) puede aplicarse la IA para prevención de corrupción y eficiencia?",opts:["Solo en 3: Abastecimiento, Presupuesto y Control Gubernamental","En 5: los sistemas bajo rectoría del MEF únicamente","En todos los 11 sistemas, con diferentes niveles de impacto y aplicación","Solo en Abastecimiento, ya que es el más propenso a irregularidades"],ok:2,exp:"La IA tiene aplicación transversal en los 11 sistemas: desde optimización presupuestal (DNPP) hasta detección de conflictos de interés en RRHH (SERVIR), auditoría predictiva (CGR) y monitoreo de obras (Invierte.pe).",area:"Sistemas"},
+{id:6,cat:"Anticorrupción IA",icon:"🔍",q:"¿Cuál es la técnica de IA más efectiva para detectar fraccionamiento ilegal en contrataciones públicas del SEACE?",opts:["Reconocimiento facial de funcionarios en oficinas de logística","Análisis de grafos (Graph Analytics) para detectar patrones de órdenes de compra al mismo proveedor en períodos cortos","Chatbots que respondan consultas de ciudadanos sobre contratos","Traducción automática de expedientes técnicos al inglés para revisión internacional"],ok:1,exp:"El análisis de grafos permite mapear relaciones entre entidades, proveedores, montos y fechas. Herramientas como Neo4j identifican en milisegundos patrones de fraccionamiento que superan umbrales de Adjudicación Simplificada.",area:"Anticorrupción"},
+{id:7,cat:"Anticorrupción IA",icon:"🕵️",q:"El análisis de metadatos de archivos Word en propuestas técnicas del SEACE puede revelar:",opts:["El nivel educativo de los postores que elaboraron el documento","Que propuestas de empresas supuestamente independientes fueron creadas en el mismo computador, evidenciando colusión","La antigüedad de la empresa en el Registro Nacional de Proveedores (RNP)","El precio de mercado correcto para comparar con el valor referencial"],ok:1,exp:"El análisis forense digital de metadatos (author, device ID, fecha de creación) es hoy la evidencia más contundente de cartelización. La CGR y Fiscalía han desarticulado redes completas con esta técnica (caso Operación Junín 2023).",area:"Anticorrupción"},
+{id:8,cat:"Ética e IA",icon:"⚖️",q:"¿Cuál es el principal riesgo ético en el uso de IA para toma de decisiones en el Estado peruano?",opts:["Que la IA sea demasiado eficiente y elimine puestos de trabajo innecesariamente","Sesgos algorítmicos que reproduzcan discriminaciones existentes, opacidad en decisiones y ausencia de mecanismos de impugnación ciudadana","Que el costo de los servidores en la nube sea muy elevado para el presupuesto nacional","Que los funcionarios no sepan usar las herramientas tecnológicas modernas"],ok:1,exp:"La ética en IA gubernamental exige explicabilidad (XAI), equidad algorítmica y derecho a impugnar decisiones automatizadas. Los sesgos en datos históricos pueden amplificar desigualdades si no se auditan los modelos.",area:"Ética"},
+{id:9,cat:"Ética e IA",icon:"🛡️",q:"¿Qué principio de gobernanza de IA establece que todo ciudadano tiene derecho a conocer por qué un algoritmo tomó una decisión que le afecta?",opts:["Principio de Velocidad Computacional","Principio de Explicabilidad (Explainability / XAI)","Principio de Automatización Total","Principio de Confidencialidad Algorítmica"],ok:1,exp:"La Explicabilidad (XAI) es un principio fundamental de gobernanza de IA de la OCDE y la UE. En el Estado peruano es esencial para el derecho de defensa de ciudadanos ante decisiones automatizadas (Ley 27444).",area:"Ética"},
+{id:10,cat:"Tecnología IA",icon:"💻",q:"¿Qué tecnología de IA se usa para analizar términos de referencia (TDR) del SEACE y detectar especificaciones técnicas dirigidas a un proveedor específico?",opts:["Visión computacional para análisis de imágenes satelitales","Procesamiento de Lenguaje Natural (NLP) con análisis semántico comparativo","Blockchain para registro inmutable de contratos","Machine Learning supervisado para predicción de precios bursátiles"],ok:1,exp:"El NLP permite comparar semánticamente TDR entre procesos similares, detectar rangos artificialmente restrictivos y alertar sobre 'TDR fotocopia' donde las especificaciones describen un producto específico y no una necesidad funcional.",area:"Tecnología"},
+{id:11,cat:"Tecnología IA",icon:"🤖",q:"¿Qué es el Machine Learning supervisado aplicado a la detección de anomalías en el gasto público?",opts:["Un sistema donde un supervisor humano revisa manualmente cada transacción financiera del SIAF","Un modelo entrenado con datos históricos de contratos legales e irregulares para clasificar nuevas operaciones según su probabilidad de fraude","Un software que automatiza la firma digital de resoluciones directivas","Una plataforma de videoconferencia para capacitar funcionarios públicos remotamente"],ok:1,exp:"El ML supervisado se entrena con miles de casos documentados (contratos auditados por CGR, fallos del Tribunal OSCE) para aprender patrones. Luego clasifica nuevas operaciones asignando un índice de riesgo en tiempo real.",area:"Tecnología"},
+{id:12,cat:"Marco Legal",icon:"📜",q:"¿Qué marco legal peruano regula actualmente el uso de datos personales en sistemas de IA del Estado?",opts:["La Ley 30225 de Contrataciones del Estado","La Ley 29733 de Protección de Datos Personales y su reglamento DS 003-2013-JUS, junto con los principios del RGPD como referencia internacional","El Código Civil peruano en sus disposiciones sobre privacidad","El Decreto Legislativo 1412 de Gobierno Digital solo para entidades de PCM"],ok:1,exp:"La Ley 29733 es la norma base de protección de datos en Perú. El DL 1412 (Ley de Gobierno Digital) establece principios para datos en plataformas estatales.",area:"Legal"},
+{id:13,cat:"Marco Legal",icon:"⚖️",q:"¿Qué vacío normativo crítico existe actualmente en Perú respecto a la IA en el sector público?",opts:["No existe vacío: el DL 1412 regula completamente la IA gubernamental","Ausencia de una ley específica de IA que regule explicabilidad, responsabilidad por decisiones algorítmicas y auditoría de modelos en uso estatal","Solo falta reglamentar el uso de drones para inspección de obras públicas","El problema es la falta de internet en zonas rurales, no la regulación"],ok:1,exp:"A diferencia de la UE (AI Act 2024) o Brasil (Ley Federal de IA), Perú carece de legislación específica sobre IA que establezca quién responde cuando un algoritmo gubernamental causa daño.",area:"Legal"},
+{id:14,cat:"Presupuesto e Inversión",icon:"💰",q:"¿Cómo se financia la implementación de IA en entidades públicas peruanas dentro del Sistema de Presupuesto Público?",opts:["Exclusivamente mediante préstamos del BID y Banco Mundial, sin uso de recursos ordinarios","A través de la cadena funcional programática con recursos del PIA/PIM de cada entidad o proyectos de inversión en Invierte.pe","Las entidades pueden contratar IA directamente sin pasar por el SEACE si el monto es menor a 50 UIT","Solo mediante Fondos de Contingencia del MEF para emergencias tecnológicas"],ok:1,exp:"La inversión en IA sigue el ciclo normal del gasto público: programación en el PAC, ejecución vía SEACE con la Ley 30225, y si supera ciertos umbrales se formula como proyecto en Invierte.pe bajo el DL 1252.",area:"Presupuesto"},
+{id:15,cat:"SERVIR e IA",icon:"👔",q:"¿Qué perfil de competencias debe desarrollar un servidor público peruano para liderar la transformación IA en su entidad (Oficial de IA)?",opts:["Exclusivamente dominio técnico en Python, TensorFlow y programación avanzada de algoritmos","Combinación de: alfabetización en IA, gestión del cambio, ética algorítmica, conocimiento normativo del sistema administrativo de su entidad y liderazgo en transformación digital","Solo certificación internacional en AWS o Google Cloud","Haber trabajado previamente en empresas tecnológicas del sector privado"],ok:1,exp:"El perfil del Oficial de IA Público (OIA) según estándares OCDE/GovTech es híbrido: no requiere ser programador, pero sí entender capacidades y límites de la IA, gestionar cambio organizacional y conocer el marco normativo.",area:"Capacidades"},
+{id:16,cat:"SERVIR e IA",icon:"🎓",q:"¿Qué rol cumplen los 'datos de entrenamiento' en un modelo de IA anticorrupción y cuál es el riesgo si estos datos están sesgados?",opts:["Los datos de entrenamiento solo afectan la velocidad del sistema, no su precisión ni equidad","Si los datos históricos reflejan que ciertos tipos de entidades 'siempre son corruptas', el modelo replicará ese sesgo e injustamente alertará más sobre esas entidades","Los datos de entrenamiento son irrelevantes porque la IA aprende sola sin necesidad de ejemplos previos","El sesgo en datos solo afecta a sistemas de reconocimiento facial, no a análisis de contratos"],ok:1,exp:"El 'basura entra, basura sale' es crítico en IA pública. Si los datos históricos tienen sesgos geográficos o políticos, el modelo los amplificará. La auditoría de datos de entrenamiento es tan importante como la auditoría del modelo.",area:"Capacidades"},
+{id:17,cat:"Interoperabilidad",icon:"🔗",q:"¿Qué plataforma del Estado peruano es la más estratégica para integrar datos de múltiples sistemas (SEACE, SIAF, RENIEC, SUNAT) mediante APIs de IA?",opts:["El portal web del MEF para consulta ciudadana","La Plataforma Nacional de Interoperabilidad del Estado (PIDE) gestionada por SEGDI-PCM","El sistema de correo electrónico oficial @gob.pe","La Plataforma de Pagos PAGO.PE del Banco de la Nación"],ok:1,exp:"La PIDE es el eje central para el intercambio de datos entre entidades. Un sistema de IA anticorrupción debe conectarse a PIDE para cruzar SEACE+SIAF+RENIEC+SUNAT+RNP en tiempo real.",area:"Tecnología"},
+{id:18,cat:"Interoperabilidad",icon:"🌐",q:"¿Qué es la 'soberanía de datos' en el contexto de IA gubernamental y por qué es crítica para el Estado peruano?",opts:["La capacidad del Estado de tener su propia empresa de telecomunicaciones nacional","El principio que establece que los datos de ciudadanos y entidades peruanas deben estar bajo jurisdicción y control del Estado peruano, sin dependencia total de proveedores cloud extranjeros","La obligación de publicar todos los datos del Estado en internet sin restricciones","La propiedad intelectual sobre los algoritmos desarrollados por funcionarios públicos"],ok:1,exp:"La soberanía de datos es estratégica: si toda la IA del Estado corre en servidores extranjeros sin contratos que garanticen acceso y portabilidad, el Estado pierde control. El cloud híbrido es la solución intermedia.",area:"Tecnología"},
+{id:19,cat:"Casos Internacionales",icon:"🌍",q:"¿Cuál es el caso internacional más citado de IA para detección de corrupción en contratos públicos que el Perú puede adaptar?",opts:["El sistema de puntuación de crédito social de China para ciudadanos","El sistema ARACHNE de la Comisión Europea que analiza riesgos en fondos estructurales y detecta patrones de irregularidad","El algoritmo de recomendación musical de Spotify aplicado a proveedores","El sistema de drones militares de Israel adaptado para inspección de obras"],ok:1,exp:"ARACHNE (CE) analiza más de 100 indicadores de riesgo en contratos públicos cofinanciados por la UE, identifica conflictos de interés, cartelización y sobrecostos. El Banco Mundial recomienda su metodología.",area:"Benchmarking"},
+{id:20,cat:"Casos Internacionales",icon:"🏆",q:"¿Qué país de América Latina tiene el sistema de IA más avanzado para modernización del Estado que el Perú debería estudiar como referente?",opts:["Venezuela, por su sistema de planificación centralizada con IA","Uruguay, con el sistema de gobierno digital GUB.UY que integra IA en servicios ciudadanos","Paraguay, por su sistema de identificación biométrica policial","Bolivia, por su uso de IA en el sector minero estatal"],ok:1,exp:"Uruguay lidera en América Latina con el Índice de Gobierno Digital del BID. Su plataforma GUB.UY integra servicios con IA, tiene interoperabilidad total y un modelo de gobernanza de datos que el Perú está adaptando.",area:"Benchmarking"},
+{id:21,cat:"Control Gubernamental",icon:"🔎",q:"¿Cómo debe integrarse la IA en el Sistema de Control Gubernamental (CGR) para cumplir el mandato del Art. 46° LOPE?",opts:["La CGR solo puede usar IA si el Congreso lo autoriza mediante ley específica","Mediante control concurrente predictivo: la IA analiza semáforos de riesgo en tiempo real durante la ejecución contractual, antes de que el daño se consuma","La CGR debe esperar la liquidación del contrato para aplicar IA en la auditoría final","La IA en control gubernamental solo sirve para automatizar los informes escritos de los auditores"],ok:1,exp:"La Ley 32187 (2026) fortalece la CGR con herramientas predictivas. El control concurrente habilitado por IA permite intervenir ANTES de que el recurso se desvíe. Los semáforos de riesgo en el SEACE son el mecanismo clave.",area:"Control"},
+{id:22,cat:"Control Gubernamental",icon:"📊",q:"¿Cuál es el KPI anticorrupción más relevante que puede calcularse automáticamente con IA en el SEACE?",opts:["El número total de palabras en los términos de referencia de cada proceso","La tasa de postor único por unidad ejecutora: valores >40% sugieren captura del mercado y justifican auditoría preventiva","El tiempo promedio que tarda un funcionario en responder correos electrónicos internos","El porcentaje de contratos formalizados en papel vs. digitalmente"],ok:1,exp:"La tasa de postor único es el indicador más revelador de captura del mercado. Tasas >40% por unidad ejecutora correlacionan fuertemente con irregularidades sistémicas. La IA lo calcula en tiempo real para todas las entidades del SEACE.",area:"Control"},
+{id:23,cat:"Salud y Educación",icon:"🏥",q:"¿Cuál es la aplicación más urgente de IA en el sector Salud del Estado peruano?",opts:["Diagnóstico médico automatizado para reemplazar a los médicos especialistas","Optimización de la cadena de abastecimiento de medicamentos del SIS/CENARES para evitar desabastecimiento y sobreprecios","Diseño de hospitales usando software de arquitectura con IA","Traducción automática de historias clínicas al inglés para médicos extranjeros"],ok:1,exp:"El desabastecimiento de medicamentos en el SISMED cuesta vidas. La IA puede predecir demanda con 85%+ de precisión, optimizar stocks por región epidemiológica y detectar sobreprecios en compras del CENARES.",area:"Sectorial"},
+{id:24,cat:"Salud y Educación",icon:"📚",q:"¿Cómo puede la IA contribuir a reducir la brecha de aprendizaje en el sistema educativo peruano post-pandemia?",opts:["Reemplazando a los docentes con avatares de IA en zonas rurales","Mediante sistemas adaptativos de aprendizaje personalizado que identifican dificultades específicas y predicen deserción temprana","Controlando la asistencia de estudiantes con reconocimiento facial obligatorio","Traduciendo automáticamente todos los libros de texto al quechua"],ok:1,exp:"El aprendizaje adaptativo (ITS) y los modelos predictivos de deserción tienen evidencia sólida. La MINEDU puede usar datos de evaluaciones como ECE para entrenar modelos que identifiquen estudiantes en riesgo con anticipación.",area:"Sectorial"},
+{id:25,cat:"Implementación",icon:"🚀",q:"¿Cuáles son las 3 barreras más críticas para implementar IA en el Estado peruano según expertos del BID y CAF?",opts:["Falta de electricidad, escasez de laptops y ausencia de WiFi en ministerios","Brecha de capacidades digitales en servidores públicos, fragmentación de datos sin estándares de interoperabilidad, y ausencia de gobernanza clara","Exceso de regulación, sobre-presupuesto en TI, y resistencia de la ciudadanía","Alta rotación de ministros, conflictos con el Congreso y baja popularidad del gobierno de turno"],ok:1,exp:"El BID (2023) identifica tres barreras estructurales: (1) Capital humano: <15% de servidores con competencias digitales básicas; (2) Datos: 11 sistemas con formatos incompatibles; (3) Gobernanza: sin marco claro de responsabilidad.",area:"Implementación"},
+{id:26,cat:"Implementación",icon:"📅",q:"¿Qué modelo de implementación gradual de IA es más adecuado para el Estado peruano dado su contexto institucional?",opts:["Big Bang: implementar todo simultáneamente en todas las entidades el mismo año","Modelo de madurez por fases: Datos → Digitalización → Automatización → Analítica → IA Predictiva → IA Generativa","Esperar a que el sector privado peruano desarrolle las herramientas y luego comprarlas","Contratar directamente a empresas chinas o estadounidenses para que implementen todo por el Estado"],ok:1,exp:"El modelo de madurez digital en 6 fases es el recomendado por OCDE, BID y SEGDI. No se puede hacer IA predictiva sin primero tener datos estructurados. Cada entidad avanza según sus capacidades.",area:"Implementación"},
+{id:27,cat:"Sociedad Civil y Academia",icon:"🎓",q:"¿Qué rol debe cumplir la academia peruana (universidades) en la implementación de la Estrategia Nacional de IA?",opts:["Ninguno: la IA es solo responsabilidad del gobierno y las empresas tecnológicas","Formación de talento especializado, investigación aplicada, evaluación independiente de algoritmos gubernamentales y transferencia tecnológica","Solo dictar cursos de programación básica para funcionarios de nivel operativo","Importar curriculum universitario de MIT o Stanford sin adaptación al contexto peruano"],ok:1,exp:"La academia cumple 4 roles críticos: formación del capital humano nacional, I+D aplicada a problemas peruanos, auditoría independiente de modelos gubernamentales, y puente entre investigación básica y aplicación estatal.",area:"Actores"},
+{id:28,cat:"Sociedad Civil y Academia",icon:"🏢",q:"¿Cómo puede el sector empresarial privado colaborar con el Estado en la implementación de IA sin generar conflictos de interés?",opts:["El sector privado no debe tener ningún rol para proteger la independencia del Estado","A través de modelos de asociación pública-privada (APP) con marcos de gobernanza transparentes: el Estado define los objetivos, la empresa aporta tecnología, con auditoría independiente","Las empresas deben donar su software de IA al Estado sin ningún contrato formal","Solo empresas peruanas con más de 20 años de existencia pueden colaborar"],ok:1,exp:"Los GovTech Partnerships exitosos (Estonia, Uruguay, Corea) muestran que la colaboración funciona cuando el Estado mantiene soberanía sobre datos, los contratos son transparentes y existe auditoría técnica independiente.",area:"Actores"},
+{id:29,cat:"Métricas y Evaluación",icon:"📈",q:"¿Cómo se mide el nivel de madurez de IA de una entidad pública peruana?",opts:["Por el número de computadoras que tiene la entidad y la velocidad de su internet","Mediante el Índice de Madurez de IA Gubernamental que evalúa: datos estructurados, capacidades del equipo, procesos digitalizados, casos implementados, gobernanza y alineamiento estratégico","Por el presupuesto asignado a tecnología como porcentaje del PIM total","Solo por la cantidad de aplicaciones móviles que ha lanzado la entidad"],ok:1,exp:"El Marco de Madurez de IA Gubernamental (OCDE/SEGDI) evalúa 6 dimensiones con puntaje 1-5: Datos, Talento, Tecnología, Gobernanza, Impacto en ciudadano y Cultura digital.",area:"Evaluación"},
+{id:30,cat:"Visión 2030",icon:"🔮",q:"Para 2030, ¿cuál es la visión más realista y ambiciosa del Estado peruano con IA, alineada con los ODS, el PEDN Perú 2050 y los estándares OCDE?",opts:["Un Estado 100% automatizado donde ningún funcionario toma decisiones","Un Estado con servicios públicos predictivos y personalizados, cero tolerancia a la corrupción sistémica gracias a IA preventiva, con ciudadanos empoderados como auditores sociales","Un Estado que subcontrata toda su operación a empresas privadas de Silicon Valley","Un Estado con una sola app que reemplaza todos los sistemas actuales de gestión"],ok:1,exp:"La visión realista para 2030 combina: servicios personalizados con datos (como Estonia), prevención activa de corrupción (como Uruguay), ciudadanía empoderada con herramientas de control social.",area:"Visión"}
+];
+
+const RESOURCES={
+excelente:[
+{icon:"🎥",title:"OCDE — AI in Government: Advanced Governance Frameworks",url:"https://www.oecd.org/going-digital/ai/",desc:"Marcos avanzados de gobernanza IA para funcionarios de alto nivel"},
+{icon:"📄",title:"BID — IA para la Transformación del Estado en ALC 2023",url:"https://publications.iadb.org/",desc:"Estudio comparativo de implementaciones exitosas en América Latina"},
+{icon:"🎓",title:"Coursera — AI For Everyone (Andrew Ng) — En español",url:"https://www.coursera.org/learn/ai-for-everyone-es",desc:"Fundamentos de IA para líderes no técnicos, 6 horas, certificado gratuito"}
+],
+bueno:[
+{icon:"📚",title:"SEGDI-PCM — Estrategia Nacional de Transformación Digital",url:"https://www.gob.pe/segdi",desc:"Documentos oficiales y hoja de ruta de digitalización del Estado peruano"},
+{icon:"🎥",title:"YouTube — GovTech Perú: IA en el Sector Público (CEPLAN)",url:"https://www.youtube.com/@ceplanperu",desc:"Videos cortos sobre planificación estratégica y tecnología en el Estado"},
+{icon:"📖",title:"MIT OpenCourseWare — Ethics of AI (Auditoría libre)",url:"https://ocw.mit.edu/",desc:"Curso completo sobre ética en IA gubernamental"}
+],
+regular:[
+{icon:"🎯",title:"Google — Fundamentos de IA Generativa (Gratis, certificado)",url:"https://grow.google/intl/es/courses-and-tools/",desc:"Introducción práctica a IA generativa para funcionarios, 5 horas"},
+{icon:"📋",title:"PCM — Portal de Gobierno Digital Perú: guías y tutoriales",url:"https://www.gob.pe/transformacion-digital",desc:"Recursos oficiales de capacitación en transformación digital"},
+{icon:"🎥",title:"TED Talk — The era of AI governance (Rumman Chowdhury)",url:"https://www.ted.com/talks",desc:"Visión accesible de gobernanza IA en 18 minutos con subtítulos en español"}
+],
+insuficiente:[
+{icon:"🚀",title:"SERVIR — Plataforma de Aprendizaje Virtual: Módulo Transformación Digital",url:"https://www.servir.gob.pe/",desc:"Capacitación oficial gratuita para servidores civiles en competencias digitales"},
+{icon:"📱",title:"Google Actívate — Fundamentos de Marketing Digital e IA (Gratis)",url:"https://grow.google/intl/es/",desc:"Fundamentos digitales en español, 40 horas"},
+{icon:"🎥",title:"YouTube — ¿Qué es la Inteligencia Artificial? (Dotcsv, 10 min)",url:"https://www.youtube.com/c/DotCSV",desc:"El canal de divulgación IA más claro en español"},
+{icon:"📖",title:"CEPLAN — Plan Estratégico de Desarrollo Nacional Perú 2050 (PDF gratuito)",url:"https://www.ceplan.gob.pe/",desc:"Leer los objetivos 3 y 4 del PEDN para entender el contexto estratégico"}
+]
+};
+
+const SCALE=[
+{min:0,max:12,label:"Insuficiente",color:"#ef4444",key:"insuficiente",msg:"Tu base conceptual necesita fortalecerse. Los recursos a continuación son el punto de partida ideal.",icon:"📘"},
+{min:13,max:20,label:"Regular",color:"#f59e0b",key:"regular",msg:"Tienes nociones básicas sólidas, pero hay áreas estratégicas por desarrollar.",icon:"📗"},
+{min:21,max:25,label:"Bueno",color:"#3b82f6",key:"bueno",msg:"Demuestras comprensión avanzada. Estás listo para liderar iniciativas de IA en tu entidad.",icon:"🎖️"},
+{min:26,max:30,label:"Excelente",color:"#22c55e",key:"excelente",msg:"¡Nivel experto! Puedes ser un agente de cambio y mentor en transformación digital del Estado.",icon:"🏆"}
+];
+
+let S={screen:'start',current:0,answers:[],attempts:{},scores:[]};
+
+function getLevel(s){return SCALE.find(l=>s>=l.min&&s<=l.max)||SCALE[0];}
+
+function render(){
+  const root=document.getElementById('app-root');
+  if(S.screen==='start'){root.innerHTML=renderStart();}
+  else if(S.screen==='quiz'){root.innerHTML=renderQuiz();}
+  else if(S.screen==='result'){root.innerHTML=renderResult();}
+}
+
+function renderStart(){
+  return`<div class="card card-accent start-screen">
+  <h2>Evalúa tu Madurez en IA Gubernamental</h2>
+  <p>30 preguntas sobre implementación estratégica de Inteligencia Artificial en el Estado peruano. Para funcionarios, autoridades, académicos, empresarios y sociedad civil.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;max-width:520px;margin:0 auto 28px;">
+  ${SCALE.map(s=>`<div style="background:${s.color}18;border:1px solid ${s.color}44;border-radius:10px;padding:12px;text-align:center;">
+    <div style="font-size:22px;">${s.icon}</div>
+    <div style="font-size:18px;font-weight:700;color:${s.color};">${s.min===0?'0':s.min}–${s.max}</div>
+    <div style="font-size:12px;font-weight:600;color:${s.color};">${s.label}</div>
+  </div>`).join('')}
+  </div>
+  <button class="btn btn-primary btn-lg" onclick="startQuiz()">▶ Comenzar Simulador</button>
+  </div>`;
+}
+
+function renderQuiz(){
+  const q=QUESTIONS[S.current];
+  const pct=(S.current/QUESTIONS.length)*100;
+  const ans=S.answers[S.current];
+  const att=S.attempts[S.current]!==undefined?S.attempts[S.current]:-1;
+  const isDone=ans!==undefined&&(ans.correct||att>=1);
+  const pts=S.scores.reduce((a,b)=>a+b,0);
+
+  let optsHtml=q.opts.map((o,i)=>{
+    let cls='opt';
+    if(isDone){if(i===q.ok)cls+=' correct';else if(ans&&ans.selected===i&&!ans.correct)cls+=' wrong';}
+    else if(ans&&ans.selected===i)cls+=' selected';
+    const disabled=isDone||(ans&&!ans.correct&&att>=1);
+    return`<button class="${cls}" onclick="selectOpt(${i})" ${disabled?'disabled':''}><span class="opt-lbl">${String.fromCharCode(65+i)}</span>${o}</button>`;
+  }).join('');
+
+  let fb='';
+  if(isDone){
+    const p=att===0?2:1;
+    if(ans.correct)fb=`<div class="feedback fb-ok">✓ <strong>Correcto — +${p} punto${p>1?'s':''}</strong><br>${q.exp}</div>`;
+    else fb=`<div class="feedback fb-err">✗ <strong>Incorrecto.</strong> Respuesta correcta: <strong>${String.fromCharCode(65+q.ok)}</strong>.<br>${q.exp}</div>`;
+  } else if(ans&&!ans.correct&&att===0){
+    fb=`<div class="feedback fb-warn">⚠️ <strong>Incorrecto en el 1.er intento.</strong> Tienes 1 intento más — vale 1 punto si aciertas ahora.</div>`;
+  }
+
+  const attLeft=att===-1?2:att===0?1:0;
+
+  return`<div>
+  <div class="prog-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>
+  <div class="q-meta">
+    <span class="q-num">Pregunta ${S.current+1} de ${QUESTIONS.length}</span>
+    <span class="q-pts">Puntaje: ${pts} pts</span>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+      <span class="q-cat">${q.icon} ${q.cat}</span>
+      ${!isDone?`<span class="attempt-badge">🔄 ${attLeft} intento${attLeft!==1?'s':''} disponible${attLeft!==1?'s':''}</span>`:''}
+    </div>
+    <div class="q-text">${q.q}</div>
+    <div class="opts">${optsHtml}</div>
+    ${fb}
+    ${isDone?`<div class="btn-row"><button class="btn btn-primary" onclick="nextQ()">${S.current<QUESTIONS.length-1?'Siguiente pregunta →':'Ver mis resultados →'}</button></div>`:''}
+  </div>
+  </div>`;
+}
+
+function renderResult(){
+  const total=S.scores.reduce((a,b)=>a+b,0);
+  const maxTotal=QUESTIONS.length*2;
+  const scaled=Math.round(total/maxTotal*30);
+  const lv=getLevel(scaled);
+  const correct=S.answers.filter(a=>a&&a.correct).length;
+
+  const areaMap={};
+  QUESTIONS.forEach((q,i)=>{
+    if(!areaMap[q.area])areaMap[q.area]={t:0,c:0};
+    areaMap[q.area].t++;
+    if(S.answers[i]&&S.answers[i].correct)areaMap[q.area].c++;
+  });
+
+  const dimHtml=Object.entries(areaMap).map(([a,d])=>{
+    const p=Math.round(d.c/d.t*100);
+    const c=p>=70?'#22c55e':p>=40?'#f59e0b':'#ef4444';
+    return`<div class="dim-card"><div class="dim-title">${a}</div><div class="dim-score" style="color:${c}">${d.c}/${d.t}</div><div class="dim-bar"><div class="dim-fill" style="width:${p}%;background:${c};"></div></div></div>`;
+  }).join('');
+
+  const wrongHtml=QUESTIONS.map((q,i)=>{
+    const a=S.answers[i];
+    if(!a||!a.correct)return`<div class="res-item"><div class="res-q">${i+1}. ${q.q}</div><span class="tag-err">✗ Correcta: ${String.fromCharCode(65+q.ok)}. ${q.opts[q.ok]}</span></div>`;
+    return'';
+  }).filter(Boolean).join('');
+
+  const res=RESOURCES[lv.key]||RESOURCES.regular;
+  const resHtml=res.map(r=>`<a href="${r.url}" target="_blank" class="resource-card"><span class="rc-icon">${r.icon}</span><div><div class="rc-title">${r.title}</div><div class="rc-desc">${r.desc}</div></div></a>`).join('');
+
+  return`<div>
+  <div class="card card-accent">
+    <div class="score-hero">
+      <div class="score-number" style="color:${lv.color}">${scaled}</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:4px;">de 30 puntos</div>
+      <div class="score-label" style="color:${lv.color}">${lv.icon} ${lv.label}</div>
+      <div class="score-msg">${lv.msg}</div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="sv" style="color:var(--green)">${correct}</div><div class="sl">correctas</div></div>
+        <div class="stat-box"><div class="sv" style="color:var(--red)">${QUESTIONS.length-correct}</div><div class="sl">incorrectas</div></div>
+        <div class="stat-box"><div class="sv" style="color:var(--gold)">${total}/${maxTotal}</div><div class="sl">puntos brutos</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="res-title">📊 Desempeño por área temática</div>
+    <div class="dim-grid">${dimHtml}</div>
+  </div>
+
+  ${wrongHtml?`<div class="card"><div class="res-title">📖 Preguntas para reforzar</div>${wrongHtml}</div>`:`<div class="card" style="text-align:center;padding:28px;"><div style="font-size:32px;">🏆</div><div style="color:var(--green);font-weight:600;margin-top:8px;">¡Perfecto! Todas las respuestas correctas.</div></div>`}
+
+  <div class="card">
+    <div class="res-title">🔗 Recursos formativos para tu nivel — ${lv.label}</div>
+    ${resHtml}
+  </div>
+
+  <div style="text-align:center;margin-top:24px;">
+    <button class="btn btn-gold btn-lg" onclick="restart()">🔄 Reintentar simulador</button>
+    <p style="font-size:12px;color:var(--muted);margin-top:16px;">Comparte en LinkedIn con <strong>#InteligenciaArtificial #EstadoPeruano #PGMGP2030 #LegadoDigital2030</strong></p>
+  </div>
+  </div>`;
+}
+
+window.startQuiz=function(){S={screen:'quiz',current:0,answers:[],attempts:{},scores:[]};render();};
+window.selectOpt=function(i){
+  const q=QUESTIONS[S.current];
+  const att=S.attempts[S.current]!==undefined?S.attempts[S.current]:-1;
+  if(att>=1&&S.answers[S.current]&&!S.answers[S.current].correct)return;
+  if(S.answers[S.current]&&S.answers[S.current].correct)return;
+  const nextAtt=att+1;
+  S.attempts[S.current]=nextAtt;
+  const correct=i===q.ok;
+  S.answers[S.current]={selected:i,correct};
+  if(!S.scores[S.current])S.scores[S.current]=correct?(nextAtt===0?2:1):0;
+  render();
+};
+window.nextQ=function(){
+  if(S.current<QUESTIONS.length-1){S.current++;render();}
+  else{S.screen='result';render();}
+};
+window.restart=function(){S={screen:'start',current:0,answers:[],attempts:{},scores:[]};render();};
+
+render();
+</script>
+</body>
+</html>
