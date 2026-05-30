@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Madurez IA — Estado Peruano 2026-2030 | Legado Bolognesi LAB</title>
+<meta name="description" content="Evalúa tu nivel de madurez en la implementación de la Estrategia Nacional de Inteligencia Artificial (ENIA 2026-2030). 30 preguntas alineadas a la PGMGP 2030 y al Plan Perú 2050.">
+<meta property="og:title" content="¿Está el Perú listo para la IA en el Estado? Descúbrelo en 30 preguntas">
+<meta property="og:description" content="Simulador de madurez en implementación de IA en el Estado peruano. ENIA 2026-2030 · PGMGP 2030 · Perú 2050.">
+<meta property="og:type" content="website">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,900&family=Spline+Sans:wght@400;500;600;700&display=swap');
+
+  :root{
+    --verde:#1a4a2e; --verde2:#0f2e1c; --oro:#c9a227; --oroLt:#e8c451; --oroDk:#8a6e16;
+    --bg:#07120c; --bg2:#0b1d12; --surface:#0e2417; --card:#123020; --border:#1d4a30;
+    --borderHi:#2c6b46; --text:#e8f3ec; --muted:#86b39a; --dim:#52806a;
+    --ok:#3fcf6e; --err:#ef5b5b; --warn:#e8c451; --azul:#5aa9e6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(900px 500px at 80% -5%, rgba(201,162,39,.10), transparent 60%),
+      radial-gradient(700px 600px at -10% 30%, rgba(26,74,46,.55), transparent 55%),
+      linear-gradient(160deg,#07120c,#0a1c12 55%,#06100a);
+    color:var(--text); font-family:'Spline Sans','Segoe UI',system-ui,sans-serif;
+    line-height:1.65; min-height:100vh; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:32px 18px 80px}
+  .serif{font-family:'Fraunces','Georgia',serif}
+  ::selection{background:var(--oro);color:#1a1206}
+  ::-webkit-scrollbar{width:9px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
+
+  /* ── HEADER / SELLO ── */
+  .crest{display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:22px}
+  .crest .ring{
+    width:54px;height:54px;border-radius:50%;border:2px solid var(--oro);
+    display:grid;place-items:center;font-size:24px;
+    background:radial-gradient(circle at 35% 25%, rgba(201,162,39,.25), transparent 70%);
+    box-shadow:0 0 0 4px rgba(201,162,39,.08), inset 0 0 18px rgba(201,162,39,.12)
+  }
+  .crest .org{font-size:11px;letter-spacing:3px;color:var(--oroLt);text-transform:uppercase}
+  .crest .org b{display:block;color:var(--muted);letter-spacing:1px;font-weight:500;font-size:10px}
+
+  .accent{height:3px;width:100%;border-radius:3px;background:linear-gradient(90deg,transparent,var(--oroDk),var(--oroLt),var(--oroDk),transparent);margin:0 0 26px}
+
+  /* ── ARTÍCULO ── */
+  .article{
+    background:linear-gradient(180deg,var(--surface),var(--bg2));
+    border:1px solid var(--border);border-radius:20px;padding:34px 30px;margin-bottom:30px;
+    position:relative;overflow:hidden
+  }
+  .article::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--verde),var(--oro),var(--verde))}
+  .eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--oroLt);font-weight:600;margin-bottom:10px}
+  h1.title{font-size:clamp(26px,5vw,40px);line-height:1.08;font-weight:900;color:#fff;margin-bottom:18px;letter-spacing:-.5px}
+  h1.title .hl{color:var(--oroLt)}
+  .article p{font-size:15px;color:var(--text);margin-bottom:14px}
+  .article p .ic{font-size:18px;margin-right:6px}
+  .article p strong{color:var(--oroLt);font-weight:600}
+  .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;padding-top:18px;border-top:1px dashed var(--border)}
+  .tag{font-size:11.5px;color:var(--azul);background:rgba(90,169,230,.10);border:1px solid rgba(90,169,230,.22);border-radius:30px;padding:4px 11px}
+  .copybar{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .btn{font-family:inherit;border:none;border-radius:11px;padding:12px 20px;font-size:14px;font-weight:600;cursor:pointer;transition:.18s;letter-spacing:.3px}
+  .btn-gold{background:linear-gradient(135deg,var(--oroLt),var(--oro));color:#1a1206}
+  .btn-gold:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+  .btn-ghost:hover{border-color:var(--borderHi);color:var(--text)}
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+  /* ── INTRO SIM ── */
+  .intro{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:28px;text-align:center;margin-bottom:24px}
+  .intro h2{font-size:22px;color:var(--oroLt);font-weight:900;margin-bottom:6px}
+  .intro .scale{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:20px 0}
+  .scale .chip{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 8px}
+  .scale .chip b{display:block;font-size:20px;font-weight:900}
+  .scale .chip span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+  .meta-row{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:12.5px;margin-top:6px}
+  .meta-row b{color:var(--text)}
+
+  /* ── QUIZ ── */
+  .topbar{position:sticky;top:0;z-index:30;background:rgba(7,18,12,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:12px 16px;margin:-32px -18px 22px;display:none;align-items:center;gap:14px}
+  .topbar.show{display:flex}
+  .topbar .bar{flex:1;height:6px;background:var(--border);border-radius:30px;overflow:hidden}
+  .topbar .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--verde),var(--oro));border-radius:30px;transition:width .4s ease}
+  .topbar .pos{font-size:13px;color:var(--muted);font-weight:600;white-space:nowrap}
+  .topbar .pts{font-size:13px;color:var(--oroLt);font-weight:700;white-space:nowrap}
+
+  .qcard{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;margin-bottom:18px;display:none;animation:fade .35s ease}
+  .qcard.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+  .dim{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--oroLt);background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.25);padding:4px 11px;border-radius:30px;font-weight:700}
+  .qtype{font-size:10.5px;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
+  .qtext{font-size:17px;line-height:1.55;font-weight:600;color:#fff;margin-bottom:20px}
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{display:flex;gap:13px;align-items:flex-start;text-align:left;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;color:var(--text);font-size:14.5px;font-family:inherit;line-height:1.5;transition:.15s;width:100%}
+  .opt:hover:not(:disabled){border-color:var(--borderHi);background:var(--bg2)}
+  .opt .key{flex-shrink:0;width:26px;height:26px;border-radius:7px;background:rgba(201,162,39,.14);border:1px solid rgba(201,162,39,.3);color:var(--oroLt);display:grid;place-items:center;font-size:12px;font-weight:800}
+  .opt.correct{border-color:var(--ok);background:rgba(63,207,110,.10)}
+  .opt.correct .key{background:var(--ok);color:#05210f;border-color:var(--ok)}
+  .opt.wrong{border-color:var(--err);background:rgba(239,91,91,.10)}
+  .opt.wrong .key{background:var(--err);color:#2a0808;border-color:var(--err)}
+  .opt:disabled{cursor:default}
+  .feedback{margin-top:16px;border-radius:12px;padding:14px 16px;font-size:13.5px;line-height:1.65;display:none}
+  .feedback.show{display:block;animation:fade .3s ease}
+  .feedback.retry{background:rgba(232,196,81,.08);border:1px solid rgba(232,196,81,.3);color:var(--warn)}
+  .feedback.good{background:rgba(63,207,110,.08);border:1px solid rgba(63,207,110,.3)}
+  .feedback.bad{background:rgba(239,91,91,.08);border:1px solid rgba(239,91,91,.3)}
+  .feedback .lbl{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:5px;display:block}
+  .feedback .norma{color:var(--azul);font-weight:600}
+  .qnav{display:flex;justify-content:flex-end;margin-top:18px}
+
+  /* ── RESULTS ── */
+  .results{display:none}
+  .results.show{display:block;animation:fade .4s ease}
+  .scoreCard{text-align:center;background:linear-gradient(180deg,var(--surface),var(--bg2));border:1px solid var(--borderHi);border-radius:22px;padding:38px 26px;margin-bottom:22px;position:relative;overflow:hidden}
+  .scoreCard::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 220px at 50% 0%, rgba(201,162,39,.16), transparent 60%)}
+  .scoreCard>*{position:relative}
+  .bignum{font-size:64px;font-weight:900;line-height:1;margin:6px 0}
+  .scoreCard .lvl{font-size:24px;font-weight:900;letter-spacing:1px}
+  .scoreCard .sub{color:var(--muted);font-size:13px;margin-top:8px}
+  .dims{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:22px}
+  .dims h3,.review h3,.resblock h3{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--oroLt);margin-bottom:16px;font-weight:700}
+  .dimrow{margin-bottom:13px}
+  .dimrow .top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+  .dimrow .top .n{color:var(--text)}
+  .dimrow .top .v{color:var(--muted);font-weight:600}
+  .dbar{height:8px;background:var(--surface);border-radius:30px;overflow:hidden}
+  .dbar i{display:block;height:100%;border-radius:30px;transition:width .7s ease}
+  .review{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:22px}
+  .rev-item{border:1px solid var(--err);border-color:rgba(239,91,91,.3);border-radius:12px;padding:14px;margin-bottom:12px;background:rgba(239,91,91,.05)}
+  .rev-item .q{font-size:13.5px;font-weight:600;color:#fff;margin-bottom:8px}
+  .rev-item .a-ok{font-size:13px;color:var(--ok);margin-bottom:6px}
+  .rev-item .a-ok b{color:var(--muted);font-weight:600}
+  .rev-item .why{font-size:12.5px;color:var(--muted);line-height:1.6}
+  .resblock{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;margin-bottom:22px}
+  .res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  .res-link{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;text-decoration:none;transition:.15s}
+  .res-link:hover{border-color:var(--borderHi);transform:translateY(-2px)}
+  .res-link .rt{color:var(--oroLt);font-size:13.5px;font-weight:700;margin-bottom:3px}
+  .res-link .rd{color:var(--muted);font-size:12px;line-height:1.5}
+  .res-link .rk{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);margin-top:6px}
+
+  .footer{text-align:center;color:var(--dim);font-size:11.5px;line-height:1.8;margin-top:40px;border-top:1px solid var(--border);padding-top:24px}
+  .footer b{color:var(--muted)}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--verde);color:#fff;border:1px solid var(--oro);border-radius:12px;padding:12px 22px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:99}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .center{text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- TOPBAR (progreso) -->
+  <div class="topbar" id="topbar">
+    <span class="pos" id="pos">1 / 30</span>
+    <div class="bar"><i id="progi" style="width:3%"></i></div>
+    <span class="pts" id="ptsLive">0.0 pts</span>
+  </div>
+
+  <!-- SELLO -->
+  <div class="crest">
+    <div class="ring">🏛️</div>
+    <div class="org">Legado Bolognesi LAB
+      <b>Laboratorio de Innovación Digital · Sociedad Civil</b>
+    </div>
+  </div>
+  <div class="accent"></div>
+
+  <!-- ARTÍCULO -->
+  <article class="article" id="article">
+    <div class="eyebrow">Artículo de difusión · LinkedIn</div>
+    <h1 class="title serif">🧠 ¿Está el Perú listo para la <span class="hl">IA en el Estado</span>? Descúbrelo en 30 preguntas</h1>
+
+    <p><span class="ic">🚀</span><strong>El futuro del Estado no se construye con papel, se construye con datos.</strong> La Estrategia Nacional de Inteligencia Artificial 2026–2030 (ENIA), aprobada por la RM N° 152-2026-PCM, dejó de ser una promesa: hoy es el puente que conecta la modernización del Estado con el Plan Perú 2050 y la modernización de la gestión pública al 2030.</p>
+
+    <p><span class="ic">📊</span><strong>La brecha de madurez digital es real.</strong> Mientras Chile, Colombia y Brasil despliegan sistemas predictivos en salud, educación y seguridad, muchas entidades peruanas aún no inician su ruta de IA. Esa brecha amenaza la calidad de los servicios al ciudadano y la competitividad del país.</p>
+
+    <p><span class="ic">🏛️</span><strong>La IA no reemplaza al funcionario: lo empodera.</strong> Desde la detección temprana de corrupción en el SEACE hasta la optimización del gasto en Invierte.pe, los 11 Sistemas Administrativos de la LOPE pueden transformarse si la IA llega con gobernanza ética y marcos claros alineados a estándares OCDE.</p>
+
+    <p><span class="ic">🎯</span><strong>El momento es ahora.</strong> Este simulador mide tu nivel de madurez sobre la implementación estratégica de IA en el Estado peruano. Funcionarios, autoridades, academia, empresa y sociedad civil: tu diagnóstico personal es el primer paso para liderar la transformación.</p>
+
+    <div class="tags">
+      <span class="tag">#InteligenciaArtificial</span><span class="tag">#ENIA2026</span>
+      <span class="tag">#GobiernoDigital</span><span class="tag">#ModernizacionDelEstado</span>
+      <span class="tag">#PGMGP2030</span><span class="tag">#Peru2050</span>
+      <span class="tag">#TransformacionDigital</span><span class="tag">#Anticorrupcion</span>
+      <span class="tag">#GobernanzaDeDatos</span><span class="tag">#OCDE</span>
+      <span class="tag">#GovTech</span><span class="tag">#LegadoBolognesiLAB</span>
+    </div>
+
+    <div class="copybar">
+      <button class="btn btn-ghost" id="btnCopy">📋 Copiar artículo para LinkedIn</button>
+      <button class="btn btn-gold" id="btnStart">▶ Iniciar el simulador</button>
+    </div>
+  </article>
+
+  <!-- INTRO -->
+  <div class="intro" id="intro">
+    <h2>Simulador de Madurez en IA</h2>
+    <div class="meta-row">
+      <span>📝 <b>30 preguntas</b> · 9 dimensiones</span>
+      <span>🔁 <b>2 intentos</b> por pregunta</span>
+      <span>⏱️ ~12 min</span>
+    </div>
+    <div class="scale">
+      <div class="chip"><b style="color:var(--err)">≤12</b><span>Insuficiente</span></div>
+      <div class="chip"><b style="color:var(--warn)">≤20</b><span>Regular</span></div>
+      <div class="chip"><b style="color:var(--azul)">≤25</b><span>Bueno</span></div>
+      <div class="chip"><b style="color:var(--ok)">30</b><span>Excelente</span></div>
+    </div>
+    <p style="color:var(--muted);font-size:13px;max-width:560px;margin:0 auto 18px">
+      Calificación: cada acierto al <b style="color:var(--text)">1.er intento = 1.0 punto</b>; al
+      <b style="color:var(--text)">2.do intento = 0.5 punto</b>. Puntaje máximo: <b style="color:var(--text)">30</b>.
+      Al finalizar verás tu diagnóstico por dimensión y recursos formativos según tu nivel.
+    </p>
+    <button class="btn btn-gold" id="btnStart2">Comenzar evaluación →</button>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz"></div>
+
+  <!-- RESULTS -->
+  <div class="results" id="results">
+    <div class="scoreCard">
+      <div style="font-size:46px" id="resEmoji">🏅</div>
+      <div class="bignum serif" id="resNum">0</div>
+      <div class="sub">de 30 puntos · <span id="resPct">0</span>% de madurez</div>
+      <div class="lvl" id="resLvl">—</div>
+      <div class="sub" id="resMsg"></div>
+    </div>
+
+    <div class="dims">
+      <h3>📊 Diagnóstico por dimensión</h3>
+      <div id="dimList"></div>
+    </div>
+
+    <div class="review" id="reviewBlock">
+      <h3>🔎 Preguntas para reforzar</h3>
+      <div id="reviewList"></div>
+    </div>
+
+    <div class="resblock">
+      <h3>🎓 Recursos formativos personalizados</h3>
+      <div class="res-grid" id="resList"></div>
+    </div>
+
+    <div class="center">
+      <button class="btn btn-gold" id="btnRetry">🔄 Reintentar simulador</button>
+      <button class="btn btn-ghost" id="btnTop" style="margin-left:8px">↑ Volver al artículo</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <b>Legado Bolognesi LAB</b> — Laboratorio de Innovación Digital (Sociedad Civil) · Fundación El Legado de Bolognesi<br>
+    Tributa a: ENIA 2026-2030 (RM N° 152-2026-PCM) · Ley 31814 · Modernización de la Gestión Pública al 2030 · Plan Perú 2050 (PEDN) · ODS<br>
+    Instrumento formativo y referencial. Verifique siempre la vigencia de la normativa citada.
+  </div>
+</div>
+
+<div class="toast" id="toast">✓ Artículo copiado</div>
+
+<script>
+// ── BANCO DE PREGUNTAS: 30 ítems · 9 dimensiones · tipos mixtos ──
+const DIMS = {
+  estrategia:'Marco estratégico ENIA',
+  pgmgp:'Modernización 2030',
+  peru2050:'Plan Perú 2050',
+  sistemas:'Sistemas LOPE',
+  anticorrupcion:'Anticorrupción con IA',
+  etica:'Ética algorítmica',
+  tecnologia:'Tecnología IA',
+  legal:'Marco legal y control',
+  global:'Benchmarking y actores'
+};
+
+const Q = [
+ // 1 — Marco estratégico
+ {d:'estrategia',t:'Opción única',q:'¿Qué instrumento aprobó oficialmente la Estrategia Nacional de Inteligencia Artificial 2026-2030 (ENIA)?',
+  o:['Una ley del Congreso de la República','La Resolución Ministerial N° 152-2026-PCM','Un decreto de urgencia del MEF','Una directiva interna de cada entidad'],
+  ok:1, norma:'RM N° 152-2026-PCM (vigente desde el 02/05/2026)',
+  exp:'La ENIA 2026-2030 fue aprobada mediante la Resolución Ministerial N° 152-2026-PCM, que entró en vigencia el 2 de mayo de 2026. Es la hoja de ruta nacional para el desarrollo, uso y gobernanza de la IA.'},
+ {d:'estrategia',t:'Verdadero / Falso',q:'La ENIA 2026-2030 es de aplicación obligatoria para las entidades de la administración pública y empresas estatales, y referencial para academia, sector privado y sociedad civil.',
+  o:['Verdadero','Falso'],
+  ok:0, norma:'RM N° 152-2026-PCM',
+  exp:'Correcto. La ENIA obliga a entidades públicas y empresas del Estado; los demás actores (privados, academia, sociedad civil) pueden adoptarla de manera referencial para sus iniciativas de IA.'},
+ {d:'estrategia',t:'Opción única',q:'¿Qué entidad ejerce la rectoría y supervisión de la implementación de la ENIA, como Autoridad Nacional en materia de IA?',
+  o:['El Ministerio de Economía y Finanzas (MEF)','La Contraloría General de la República','La PCM, a través de la Secretaría de Gobierno y Transformación Digital (SGTD)','El Congreso de la República'],
+  ok:2, norma:'DL 1412 (Gobierno Digital) · DU 006-2020 · RM 152-2026-PCM',
+  exp:'La PCM, a través de la SGTD, es el ente rector del Sistema Nacional de Transformación Digital y la Autoridad Nacional que conduce, supervisa y actualiza la ENIA.'},
+ {d:'estrategia',t:'Opción única',q:'La Ley 31814 y su reglamento (DS 115-2025-PCM) tienen como finalidad principal:',
+  o:['Prohibir el uso de IA en el sector público','Promover el uso de la IA en favor del desarrollo económico y social del país','Crear un impuesto a los sistemas de IA','Regular únicamente los videojuegos con IA'],
+  ok:1, norma:'Ley 31814 · DS 115-2025-PCM',
+  exp:'La Ley 31814 promueve e impulsa el uso de la IA en beneficio del desarrollo económico y social; su reglamento (DS 115-2025-PCM) fomenta su adopción por entidades públicas, privados, academia y ciudadanía.'},
+
+ // 5 — PGMGP / Modernización 2030
+ {d:'pgmgp',t:'Opción única',q:'¿Qué Sistema Administrativo de la LOPE tiene como rector a la Secretaría de Gestión Pública (SGP-PCM) y conduce la modernización del Estado al 2030?',
+  o:['Sistema de Abastecimiento','Sistema de Control Gubernamental','Sistema de Modernización de la Gestión Pública','Sistema de Tesorería'],
+  ok:2, norma:'Ley 27658 (mod. DL 1446) · DS 062-2022-PCM',
+  exp:'La Modernización de la Gestión Pública es rectoría de la SGP-PCM e impulsa la política/plan de modernización al 2030: simplificación administrativa, gobierno abierto, calidad y orientación al ciudadano.'},
+ {d:'pgmgp',t:'Opción única',q:'¿Cuál de estas iniciativas de IA contribuye MÁS directamente al objetivo de modernización de "servicios centrados en el ciudadano"?',
+  o:['Un chatbot oficial que orienta trámites 24/7 y reduce colas presenciales','Comprar el servidor más caro del mercado','Digitalizar documentos sin rediseñar el proceso','Crear más formularios en papel'],
+  ok:0, norma:'PNMGP al 2030 · DL 1412 Gobierno Digital',
+  exp:'La modernización busca valor público para el ciudadano. Un asistente oficial que resuelve dudas y agiliza trámites mejora el servicio; comprar hardware o digitalizar sin rediseñar el proceso no genera ese valor por sí solo.'},
+ {d:'pgmgp',t:'Verdadero / Falso',q:'Digitalizar un trámite ineficiente, sin rediseñar el proceso de fondo, es suficiente para considerarlo "modernización del Estado".',
+  o:['Verdadero','Falso'],
+  ok:1, norma:'PNMGP al 2030',
+  exp:'Falso. Automatizar un mal proceso solo produce un "mal proceso más rápido". La modernización exige rediseñar y simplificar antes de digitalizar o aplicar IA.'},
+
+ // 8 — Perú 2050
+ {d:'peru2050',t:'Opción única',q:'El Plan Estratégico de Desarrollo Nacional (PEDN) "Perú 2050" tiene como ente rector del Sistema de Planeamiento Estratégico a:',
+  o:['CEPLAN','INEI','SUNAT','OSCE'],
+  ok:0, norma:'DL 1088 · DS 029-2018-PCM',
+  exp:'CEPLAN (Centro Nacional de Planeamiento Estratégico) es el ente rector del Sistema de Planeamiento Estratégico y conduce el PEDN Perú 2050, marco de largo plazo del desarrollo nacional.'},
+ {d:'peru2050',t:'Opción única',q:'¿Cuál es el orden correcto del ciclo que articula los sistemas administrativos para ejecutar una política con apoyo de IA?',
+  o:['Control → Abastecimiento → Presupuesto → Planeamiento','Planeamiento → Presupuesto → Inversión → Abastecimiento → Control','Abastecimiento → Tesorería → Planeamiento → Inversión','Presupuesto → Control → Planeamiento → Abastecimiento'],
+  ok:1, norma:'Ley 29158 (LOPE) · articulación CEPLAN-MEF-CGR',
+  exp:'El ciclo lógico es Planeamiento (CEPLAN) → Presupuesto (MEF) → Inversión (Invierte.pe) → Abastecimiento (OSCE/DGA) → Control (CGR). La IA puede insertarse como capa predictiva en cada eslabón.'},
+ {d:'peru2050',t:'Verdadero / Falso',q:'Alinear los proyectos de IA del Estado con los objetivos de largo plazo del Plan Perú 2050 ayuda a evitar iniciativas dispersas y sin impacto sostenible.',
+  o:['Verdadero','Falso'],
+  ok:0, norma:'PEDN Perú 2050 · CEPLAN',
+  exp:'Verdadero. El alineamiento estratégico evita "islas tecnológicas": cada iniciativa de IA debe tributar a objetivos nacionales medibles para ser sostenible y financiable.'},
+
+ // 11 — Sistemas LOPE
+ {d:'sistemas',t:'Opción única',q:'¿Cuántos Sistemas Administrativos reconoce el Art. 46° de la LOPE (Ley 29158)?',
+  o:['8','11','15','21'],
+  ok:1, norma:'Art. 46° Ley 29158 (LOPE)',
+  exp:'La LOPE reconoce 11 Sistemas Administrativos (lista taxativa): Abastecimiento, Presupuesto, Tesorería, Endeudamiento, Contabilidad, Inversión Pública, RR.HH., Planeamiento, Defensa Jurídica, Control y Modernización.'},
+ {d:'sistemas',t:'Opción única',q:'De los 11 Sistemas Administrativos, ¿cuál es el ÚNICO cuyo ente rector NO pertenece al Poder Ejecutivo, por ser autónomo?',
+  o:['Sistema de Presupuesto Público','Sistema de Control Gubernamental (CGR)','Sistema de Abastecimiento','Sistema de Tesorería'],
+  ok:1, norma:'Ley 27785 · Ley 32187',
+  exp:'El Sistema de Control Gubernamental tiene como rector a la Contraloría General de la República (CGR), órgano constitucionalmente autónomo. Los otros 10 tienen rectores dentro del Ejecutivo.'},
+ {d:'sistemas',t:'Opción única',q:'El ente rector del Sistema de Abastecimiento, que articula contrataciones (OSCE) y bienes nacionales (SBN), es:',
+  o:['La DGA (Dirección General de Abastecimiento) del MEF','SERVIR','CEPLAN','El INEI'],
+  ok:0, norma:'DL 1439 · Ley 30225',
+  exp:'La DGA del MEF es el ente rector del Sistema de Abastecimiento (DL 1439). La OSCE supervisa las contrataciones (Ley 30225) y la SBN administra los bienes estatales.'},
+ {d:'sistemas',t:'Opción única',q:'Un sistema de IA que prioriza qué obras públicas tienen mayor probabilidad de paralizarse apoyaría sobre todo al sistema de:',
+  o:['Defensa Jurídica del Estado','Inversión Pública (Invierte.pe)','Tesorería','Endeudamiento'],
+  ok:1, norma:'DL 1252 · Invierte.pe',
+  exp:'Predecir riesgo de paralización de obras es propio de la Inversión Pública (Invierte.pe / DGPMI-MEF), que programa y evalúa la cartera de proyectos del Estado.'},
+
+ // 15 — Anticorrupción con IA
+ {d:'anticorrupcion',t:'Opción única',q:'Una entidad realiza 12 órdenes de compra del mismo bien al mismo proveedor en 45 días, todas justo bajo el umbral. Un sistema de IA debería marcar esto como:',
+  o:['Compras eficientes por agilidad','Posible fraccionamiento ilegal de la contratación','Una buena práctica de mercado','Algo irrelevante para el control'],
+  ok:1, norma:'Art. 19° Ley 30225',
+  exp:'Es el patrón clásico de fraccionamiento: dividir artificialmente una necesidad para eludir el proceso que corresponde. La IA detecta el "test de identidad" (mismo bien + proveedor + período) sumando las órdenes.'},
+ {d:'anticorrupcion',t:'Opción única',q:'En una licitación 4 propuestas económicas difieren entre sí en solo 0,08 %. ¿Qué alerta debe priorizar un modelo anticorrupción?',
+  o:['Mercado competitivo saludable','Posible cartelización / concertación de precios','Error del valor referencial','Buena noticia: hay muchos postores'],
+  ok:1, norma:'DL 1034 Libre Competencia · Art. 384° CP',
+  exp:'Una convergencia de precios menor al 1 % entre competidores es estadísticamente anómala y sugiere concertación. Debe reportarse a INDECOPI y a la CGR. La IA detecta estos patrones de varianza casi nula.'},
+ {d:'anticorrupcion',t:'Verdadero / Falso',q:'El control preventivo (alertas en el SEACE antes de la adjudicación) suele ser más costo-eficiente que recuperar fondos tras consumarse el daño.',
+  o:['Verdadero','Falso'],
+  ok:0, norma:'Ley 27785 · control concurrente CGR',
+  exp:'Verdadero. Prevenir es más barato que sancionar y recuperar: la alerta temprana evita el desvío antes de que ocurra, en línea con el control concurrente y la lógica predictiva de la ENIA.'},
+
+ // 18 — Ética algorítmica (incluye reflexión obligatoria)
+ {d:'etica',t:'Opción única',q:'Un modelo de IA del Estado se entrena solo con datos urbanos de Lima. ¿Cuál es el principal riesgo ético al aplicarlo en zonas rurales?',
+  o:['Que sea demasiado rápido','Sesgo algorítmico que perjudica a poblaciones no representadas en los datos','Que consuma poca energía','Ningún riesgo: la IA es neutral'],
+  ok:1, norma:'Ley 31814 (principios) · estándares OCDE de IA',
+  exp:'La IA no es neutral: hereda los sesgos de sus datos. Un modelo entrenado sin datos rurales puede tomar decisiones injustas con esas comunidades, ampliando brechas. Por eso la ENIA exige datos representativos y supervisión humana.'},
+ {d:'etica',t:'Opción única',q:'Para una IA pública ética, ¿qué principio garantiza que una persona pueda entender y cuestionar una decisión automatizada que la afecta?',
+  o:['Velocidad','Transparencia y explicabilidad (con intervención humana)','Confidencialidad total del algoritmo','Maximizar la cantidad de datos'],
+  ok:1, norma:'ENIA 2026-2030 · Ley 31814 · DS 006-2026-JUS (TUO Ley 27444)',
+  exp:'La explicabilidad y la posibilidad de intervención/revisión humana son centrales: ninguna decisión que afecte derechos debe ser una "caja negra" incuestionable. La ENIA exige patrones de control y participación humana.'},
+ {d:'etica',t:'Verdadero / Falso',q:'Cerrar la brecha digital (conectividad, dispositivos y alfabetización) es una condición para que la IA del Estado no profundice desigualdades existentes.',
+  o:['Verdadero','Falso'],
+  ok:0, norma:'PEDN Perú 2050 · enfoque de inclusión',
+  exp:'Verdadero. Si solo accede quien tiene conectividad y competencias, la IA amplía la brecha. La inclusión digital es requisito ético para que la transformación llegue también a zonas donde el Estado no llega.'},
+ {d:'etica',t:'Opción única',q:'¿Quién debe conservar la responsabilidad final por una decisión administrativa tomada con apoyo de IA?',
+  o:['El proveedor del software','El propio algoritmo','El funcionario o la entidad pública competente','Nadie, si fue automática'],
+  ok:2, norma:'Ley 27444 (TUO DS 006-2026-JUS) · ENIA',
+  exp:'La IA es una herramienta de apoyo; la responsabilidad administrativa y legal permanece en el funcionario/entidad. No existe "responsabilidad del algoritmo": siempre hay rendición de cuentas humana.'},
+
+ // 22 — Tecnología IA
+ {d:'tecnologia',t:'Opción única',q:'Para escanear términos de referencia (TDR) y detectar cláusulas dirigidas que favorezcan a un postor, la técnica de IA más adecuada es:',
+  o:['Procesamiento de Lenguaje Natural (NLP)','Bases de datos de grafos','Realidad virtual','Hojas de cálculo manuales'],
+  ok:0, norma:'Componente NLP — arquitectura ENIA/GovTech',
+  exp:'El NLP analiza texto: lee y compara TDR y especificaciones técnicas para detectar redacciones restrictivas o "fotocopia" que direccionan la compra a un proveedor específico.'},
+ {d:'tecnologia',t:'Opción única',q:'Para mapear vínculos ocultos entre socios, domicilios, contadores y consorcios y descubrir testaferros, la herramienta idónea es:',
+  o:['Una base de datos de grafos (p. ej. Neo4j)','Un editor de imágenes','Un convertidor de PDF','Una macro de Excel simple'],
+  ok:0, norma:'Análisis de redes — grafos',
+  exp:'Las bases de datos de grafos modelan relaciones complejas (persona-empresa-domicilio) y revelan en milisegundos redes de parentesco o empresas vinculadas que de otro modo pasarían inadvertidas.'},
+ {d:'tecnologia',t:'Opción única',q:'¿Qué describe mejor el Machine Learning aplicado a la prevención de fraude?',
+  o:['Reglas fijas escritas una sola vez que nunca cambian','Modelos que aprenden patrones de casos históricos para estimar la probabilidad de riesgo','Un buscador de internet','Un sistema de videollamadas'],
+  ok:1, norma:'Componente ML — arquitectura predictiva',
+  exp:'El ML aprende de datos históricos (contratos anulados, informes de control) para calcular un índice de probabilidad de fraude en nuevos procesos, mejorando con cada caso.'},
+
+ // 25 — Marco legal / control / OIA / SERVIR
+ {d:'legal',t:'Opción única',q:'La ENIA prevé un perfil técnico responsable de articular la IA en cada entidad. ¿Cómo se denomina?',
+  o:['Oficial de Inteligencia Artificial (OIA)','Gerente de compras','Vocero institucional','Auditor externo'],
+  ok:0, norma:'RM 152-2026-PCM (lineamientos del OIA, plazo 90 días hábiles)',
+  exp:'El Oficial de Inteligencia Artificial (OIA) y su equipo técnico articulan la implementación de la IA en la entidad. La PCM debía aprobar sus lineamientos de perfil y funciones en un plazo de 90 días hábiles.'},
+ {d:'legal',t:'Opción única',q:'¿Qué ente rector administra el Registro Nacional de Sanciones contra Servidores Civiles y la gestión de RR.HH. del Estado?',
+  o:['SERVIR (Autoridad Nacional del Servicio Civil)','El Poder Judicial','La SUNAT','El INEI'],
+  ok:0, norma:'DL 1023 · Ley 30057',
+  exp:'SERVIR rige el Sistema de Gestión de Recursos Humanos y administra el registro de sanciones de servidores civiles, herramienta clave para evitar designaciones a personal inhabilitado.'},
+ {d:'legal',t:'Verdadero / Falso',q:'La Ley 32314 modificó el Código Penal para contemplar el uso de inteligencia artificial en la comisión de delitos.',
+  o:['Verdadero','Falso'],
+  ok:0, norma:'Ley 32314 (mod. Código Penal)',
+  exp:'Verdadero. La Ley 32314 incorporó al Código Penal el uso de IA en la comisión de delitos, reflejando que el marco legal evoluciona frente a los nuevos riesgos tecnológicos.'},
+
+ // 28 — Benchmarking / actores / implementación
+ {d:'global',t:'Opción única',q:'Al diseñar la gobernanza de IA del Estado, tomar como referencia los Principios de IA de la OCDE sirve principalmente para:',
+  o:['Copiar leyes extranjeras al pie de la letra','Adoptar estándares internacionales de IA confiable y centrada en el ser humano','Reemplazar la normativa peruana','Evitar toda regulación'],
+  ok:1, norma:'Principios OCDE sobre IA · ENIA',
+  exp:'Los Principios OCDE (IA confiable, centrada en las personas, transparente y responsable) son un marco de referencia para alinear la política nacional con buenas prácticas globales, adaptándolas al contexto peruano.'},
+ {d:'global',t:'Opción única',q:'¿Cuál es el enfoque de implementación más realista para llevar IA a entidades con baja madurez digital?',
+  o:['Implementar todo de golpe en todas las entidades el mismo día','Una adopción progresiva y gradual, según recursos y capacidades de cada entidad','No implementar nunca','Solo en Lima'],
+  ok:1, norma:'RM 152-2026-PCM (aplicación progresiva)',
+  exp:'La ENIA dispone una aplicación progresiva: cada entidad alinea sus planes según sus recursos y capacidades. La gradualidad reduce riesgos y permite aprender antes de escalar.'},
+ {d:'global',t:'Opción única',q:'El éxito sostenible de la IA en el Estado depende de articular a múltiples actores. ¿Cuál es el conjunto correcto?',
+  o:['Solo el gobierno central','Estado (3 niveles), academia, sector privado y sociedad civil','Únicamente las empresas tecnológicas','Solo organismos internacionales'],
+  ok:1, norma:'ENIA 2026-2030 · gobernanza multisectorial',
+  exp:'La ENIA promueve una gobernanza multisectorial: los tres niveles de gobierno, la academia, el sector privado y la sociedad civil. La colaboración —no el aislamiento— es lo que sostiene la transformación.'}
+];
+
+// ── ESTADO ──
+const state = { i:0, score:0, attempts:0, results:[] };
+const $ = s => document.querySelector(s);
+const quiz = $('#quiz');
+
+// Render artículo -> texto plano para LinkedIn
+const ARTICLE_TXT = `🧠 ¿Está el Perú listo para la IA en el Estado? Descúbrelo en 30 preguntas
+
+🚀 El futuro del Estado no se construye con papel, se construye con datos. La Estrategia Nacional de Inteligencia Artificial 2026–2030 (ENIA), aprobada por la RM N° 152-2026-PCM, dejó de ser una promesa: hoy es el puente que conecta la modernización del Estado con el Plan Perú 2050 y la modernización de la gestión pública al 2030.
+
+📊 La brecha de madurez digital es real. Mientras Chile, Colombia y Brasil despliegan sistemas predictivos en salud, educación y seguridad, muchas entidades peruanas aún no inician su ruta de IA. Esa brecha amenaza la calidad de los servicios al ciudadano y la competitividad del país.
+
+🏛️ La IA no reemplaza al funcionario: lo empodera. Desde la detección temprana de corrupción en el SEACE hasta la optimización del gasto en Invierte.pe, los 11 Sistemas Administrativos de la LOPE pueden transformarse si la IA llega con gobernanza ética y marcos claros alineados a estándares OCDE.
+
+🎯 El momento es ahora. Este simulador mide tu nivel de madurez sobre la implementación estratégica de IA en el Estado peruano. Funcionarios, autoridades, academia, empresa y sociedad civil: tu diagnóstico personal es el primer paso para liderar la transformación.
+
+👇 Responde 30 preguntas y descubre tu nivel de madurez.
+
+#InteligenciaArtificial #ENIA2026 #GobiernoDigital #ModernizacionDelEstado #PGMGP2030 #Peru2050 #TransformacionDigital #Anticorrupcion #GobernanzaDeDatos #OCDE #GovTech #LegadoBolognesiLAB`;
+
+function buildQuiz(){
+  quiz.innerHTML = '';
+  Q.forEach((q,idx)=>{
+    const card = document.createElement('div');
+    card.className='qcard'+(idx===0?' active':'');
+    card.id='q'+idx;
+    card.innerHTML = `
+      <div class="qhead">
+        <span class="dim">${idx+1}. ${DIMS[q.d]}</span>
+        <span class="qtype">${q.t} · 2 intentos</span>
+      </div>
+      <div class="qtext">${q.q}</div>
+      <div class="opts">
+        ${q.o.map((op,i)=>`<button class="opt" data-q="${idx}" data-i="${i}">
+            <span class="key">${String.fromCharCode(65+i)}</span><span>${op}</span></button>`).join('')}
+      </div>
+      <div class="feedback" id="fb${idx}"></div>
+      <div class="qnav"><button class="btn btn-gold next" data-q="${idx}" style="display:none">
+        ${idx===Q.length-1?'Ver mi resultado →':'Siguiente pregunta →'}</button></div>`;
+    quiz.appendChild(card);
+  });
+  quiz.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',onAnswer));
+  quiz.querySelectorAll('.next').forEach(b=>b.addEventListener('click',onNext));
+}
+
+function onAnswer(e){
+  const btn = e.currentTarget;
+  const qi = +btn.dataset.q, ci = +btn.dataset.i;
+  if(qi!==state.i) return;
+  const q = Q[qi];
+  const opts = document.querySelectorAll(`#q${qi} .opt`);
+  const fb = $('#fb'+qi);
+
+  if(ci===q.ok){
+    const pts = state.attempts===0 ? 1 : 0.5;
+    state.score += pts;
+    btn.classList.add('correct');
+    opts.forEach(o=>o.disabled=true);
+    fb.className='feedback show good';
+    fb.innerHTML = `<span class="lbl">✓ Correcto · +${pts} punto${pts===1?'':'s'}</span>
+      ${q.exp}<br><span class="norma">📚 ${q.norma}</span>`;
+    state.results.push({d:q.d, ok:true, first:state.attempts===0, qi});
+    $('#q'+qi+' .next').style.display='inline-block';
+    updateLive();
+  } else {
+    if(state.attempts===0){
+      state.attempts=1;
+      btn.classList.add('wrong'); btn.disabled=true;
+      fb.className='feedback show retry';
+      fb.innerHTML = `<span class="lbl">✗ Incorrecto · te queda 1 intento (vale 0.5)</span>
+        Revisa con cuidado y elige otra alternativa.`;
+    } else {
+      btn.classList.add('wrong');
+      opts.forEach(o=>{o.disabled=true; if(+o.dataset.i===q.ok)o.classList.add('correct');});
+      fb.className='feedback show bad';
+      fb.innerHTML = `<span class="lbl">✗ Incorrecto · 0 puntos</span>
+        ${q.exp}<br><span class="norma">📚 ${q.norma}</span>`;
+      state.results.push({d:q.d, ok:false, first:false, qi});
+      $('#q'+qi+' .next').style.display='inline-block';
+    }
+  }
+}
+
+function onNext(){
+  $('#q'+state.i).classList.remove('active');
+  state.i++; state.attempts=0;
+  if(state.i>=Q.length){ showResults(); return; }
+  const card = $('#q'+state.i);
+  card.classList.add('active');
+  $('#topbar').scrollIntoView({behavior:'smooth',block:'start'});
+  updateLive();
+}
+
+function updateLive(){
+  $('#pos').textContent = `${Math.min(state.i+1,Q.length)} / ${Q.length}`;
+  $('#progi').style.width = ((state.i)/Q.length*100 + 3) + '%';
+  $('#ptsLive').textContent = state.score.toFixed(1)+' pts';
+}
+
+function levelFor(s){
+  if(s<=12) return {n:'Insuficiente',c:'var(--err)',e:'📚',m:'Etapa inicial. Hay una gran oportunidad de crecimiento: empieza por los fundamentos de la ENIA y los sistemas del Estado.'};
+  if(s<=20) return {n:'Regular',c:'var(--warn)',e:'🌱',m:'Base en formación. Conoces lo esencial; profundiza en marco legal, ética y aplicación práctica de la IA.'};
+  if(s<=25) return {n:'Bueno',c:'var(--azul)',e:'🚀',m:'Buen nivel de madurez. Dominas lo estratégico; afina los detalles técnicos y normativos para liderar implementaciones.'};
+  return {n:'Excelente',c:'var(--ok)',e:'🏅',m:'Nivel de referente. Estás listo para conducir y articular la transformación con IA en tu entidad y comunidad.'};
+}
+
+const RES = {
+  bajo:[
+    {t:'¿Qué es la IA? (curso gratis)',d:'Elements of AI — introducción accesible y en español.',k:'Curso · Universidad de Helsinki',u:'https://www.elementsofai.com/es'},
+    {t:'ENIA 2026-2030 (documento oficial)',d:'Lee la Estrategia Nacional de IA del Perú.',k:'PCM · Estrategia',u:'https://www.gob.pe/institucion/pcm/informes-publicaciones/7190386'},
+    {t:'Gobierno Digital del Perú',d:'Portal de la SGTD: transformación digital del Estado.',k:'SGTD-PCM',u:'https://www.gob.pe/sgtd'},
+    {t:'Los Sistemas Administrativos (LOPE)',d:'Marco de la Ley 29158 y los 11 sistemas.',k:'Lectura · Estado',u:'https://www.gob.pe/'},
+  ],
+  medio:[
+    {t:'IA para todos — Andrew Ng',d:'Visión no técnica de cómo aplicar IA en organizaciones.',k:'Coursera · DeepLearning.AI',u:'https://www.coursera.org/learn/ai-for-everyone-es'},
+    {t:'Principios de IA de la OCDE',d:'Estándares internacionales de IA confiable.',k:'OCDE',u:'https://oecd.ai/es/ai-principles'},
+    {t:'CEPLAN — Perú 2050',d:'Plan de desarrollo nacional de largo plazo.',k:'CEPLAN',u:'https://www.gob.pe/ceplan'},
+    {t:'Ley 31814 y reglamento',d:'Marco legal del uso de IA en el Perú.',k:'Normativa',u:'https://www.gob.pe/'},
+  ],
+  alto:[
+    {t:'IA en el sector público — BID',d:'Casos y guías de adopción de IA en gobiernos de la región.',k:'BID · fAIr LAC',u:'https://www.iadb.org/es'},
+    {t:'Recomendación UNESCO sobre Ética de la IA',d:'Marco ético global para políticas de IA.',k:'UNESCO',u:'https://www.unesco.org/es/artificial-intelligence/recommendation-ethics'},
+    {t:'Contraloría — control y datos abiertos',d:'Herramientas de fiscalización y prevención.',k:'CGR',u:'https://www.gob.pe/contraloria'},
+    {t:'OECD.AI Policy Observatory',d:'Observatorio de políticas y métricas de IA en el mundo.',k:'OCDE',u:'https://oecd.ai/es'},
+  ]
+};
+
+function showResults(){
+  $('#topbar').classList.remove('show');
+  $('#quiz').style.display='none';
+  $('#article').style.display='none';
+  $('#intro').style.display='none';
+  const r = $('#results'); r.classList.add('show');
+
+  const s = state.score, pct = Math.round(s/30*100), L = levelFor(s);
+  $('#resNum').textContent = s.toFixed(1).replace(/\.0$/,'');
+  $('#resNum').style.color = L.c;
+  $('#resPct').textContent = pct;
+  $('#resLvl').textContent = L.n; $('#resLvl').style.color = L.c;
+  $('#resEmoji').textContent = L.e;
+  $('#resMsg').textContent = L.m;
+
+  // por dimensión
+  const byDim = {};
+  Object.keys(DIMS).forEach(k=>byDim[k]={ok:0,tot:0});
+  Q.forEach(q=>byDim[q.d].tot++);
+  state.results.forEach(x=>{ if(x.ok) byDim[x.d].ok++; });
+  const dl = $('#dimList'); dl.innerHTML='';
+  Object.keys(DIMS).forEach(k=>{
+    const o=byDim[k], p=Math.round(o.ok/o.tot*100);
+    const c = p>=80?'var(--ok)':p>=50?'var(--azul)':p>=30?'var(--warn)':'var(--err)';
+    dl.insertAdjacentHTML('beforeend',`<div class="dimrow">
+      <div class="top"><span class="n">${DIMS[k]}</span><span class="v">${o.ok}/${o.tot}</span></div>
+      <div class="dbar"><i style="width:${p}%;background:${c}"></i></div></div>`);
+  });
+
+  // refuerzo (incorrectas)
+  const wrong = state.results.filter(x=>!x.ok);
+  const rb = $('#reviewBlock'), rl=$('#reviewList'); rl.innerHTML='';
+  if(wrong.length===0){
+    rb.querySelector('h3').textContent='✓ ¡Sin errores!';
+    rl.innerHTML='<div style="color:var(--ok);font-size:14px">Respondiste correctamente todas las preguntas. Excelente dominio del tema.</div>';
+  } else {
+    wrong.forEach(x=>{
+      const q=Q[x.qi];
+      rl.insertAdjacentHTML('beforeend',`<div class="rev-item">
+        <div class="q">${q.q}</div>
+        <div class="a-ok"><b>Respuesta correcta:</b> ${q.o[q.ok]}</div>
+        <div class="why">${q.exp} <span class="norma" style="color:var(--azul)">— ${q.norma}</span></div></div>`);
+    });
+  }
+
+  // recursos por nivel
+  const set = s<=12?RES.bajo : s<=20?RES.medio : RES.alto;
+  const rs=$('#resList'); rs.innerHTML='';
+  set.forEach(x=>rs.insertAdjacentHTML('beforeend',
+    `<a class="res-link" href="${x.u}" target="_blank" rel="noopener">
+       <div class="rt">${x.t}</div><div class="rd">${x.d}</div><div class="rk">${x.k}</div></a>`));
+
+  r.scrollIntoView({behavior:'smooth'});
+}
+
+function start(){
+  $('#article').style.display='none';
+  $('#intro').style.display='none';
+  $('#topbar').classList.add('show');
+  $('#quiz').style.display='block';
+  updateLive();
+  $('#topbar').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function reset(){
+  state.i=0; state.score=0; state.attempts=0; state.results=[];
+  $('#results').classList.remove('show');
+  buildQuiz();
+  $('#quiz').style.display='none';
+  $('#article').style.display='block';
+  $('#intro').style.display='block';
+  $('#topbar').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// listeners
+$('#btnStart').addEventListener('click',start);
+$('#btnStart2').addEventListener('click',start);
+$('#btnRetry').addEventListener('click',reset);
+$('#btnTop').addEventListener('click',()=>{ $('#article').style.display='block'; $('#results').classList.remove('show'); window.scrollTo({top:0,behavior:'smooth'}); });
+$('#btnCopy').addEventListener('click',()=>{
+  navigator.clipboard.writeText(ARTICLE_TXT).then(()=>{
+    const t=$('#toast'); t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800);
+  }).catch(()=>{ alert('Copia manual:\n\n'+ARTICLE_TXT); });
+});
+
+buildQuiz();
+</script>
+</body>
+</html>
